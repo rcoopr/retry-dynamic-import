@@ -32,6 +32,10 @@ describe("path parsing of importer function", () => {
   viteImporterWithPreloadedDeps.toString = function () {
     return `()=>H(()=>import("./NeedsFooAndBar.js"),["assets/foo.js","assets/bar.js"])`;
   };
+  const viteImporterWithBackticks = function () {};
+  viteImporterWithBackticks.toString = function () {
+    return 'TM=X(()=>E(()=>import(`./vite8-rolldown-chunk.js`),__vite__mapDeps([1]))),';
+  };
 
   it("should work", () => {
     expect(parseBody(importer1)).toEqual("./some-module1");
@@ -40,6 +44,9 @@ describe("path parsing of importer function", () => {
     expect(parseBody(importer4)).toEqual("./some-module4");
     expect(parseBody(viteImporterWithPreloadedDeps)).toEqual(
       "./NeedsFooAndBar.js",
+    );
+    expect(parseBody(viteImporterWithBackticks)).toEqual(
+      "./chunk.js",
     );
   });
 });

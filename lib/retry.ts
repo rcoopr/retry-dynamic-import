@@ -8,7 +8,7 @@ type PositiveInteger<T extends number> = `${T}` extends
 const noop = () => {};
 
 const identity = (e: any) => e;
-const uriOrRelativePathRegex = /(['"])((\w+:(\/?\/?))?[^\s,]+)\1/;
+const uriOrRelativePathRegex = /(['"`])((\w+:(\/?\/?))?[^\s,]+)\1/;
 function parseModulePathFromImporterBody(importer: () => any): string | null {
   const fnString = importer.toString();
   const match = fnString.match(uriOrRelativePathRegex);
